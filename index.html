@@ -27,9 +27,9 @@
             <!-- 第三個區塊 -->
             <div class="col-md-4">
                 <div class="p-3 border bg-dark text-white">單價</div>
-                <button class="btn btn-primary m-1" onclick="addItem(5)">5</button>
-                <button class="btn btn-primary m-1" onclick="addItem(10)">10</button>
-                <button class="btn btn-primary m-1" onclick="addItem(20)">20</button>
+                <div class="row">
+                    <div class="row" id="priceButtons"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -37,6 +37,7 @@
     <!-- 引入 Bootstrap JS (可選) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+    	
         let totalAmount = 0;
         let itemCounts = {};
 
@@ -99,6 +100,16 @@
             $('#totalAmount').text(totalAmount);
             updateGroupb();
         }
+        
+        $(document).ready(function() {
+            for (let price = 95; price >= 20; price -= 5) {
+                $('#priceButtons').append(`
+                    <div class="col-6">
+                        <button class="btn btn-primary m-1 btn-lg w-100" onclick="addItem(${price})">${price}</button>
+                    </div>
+                `);
+            }
+        });
    </script>
 </body>
 </html>
