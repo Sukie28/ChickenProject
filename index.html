@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     
     <title>Chicken</title>
     <!-- 引入 Bootstrap CSS -->
@@ -13,7 +14,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         html, body {
-		    touch-action: manipulation; /* 禁用双击缩放 */
+		    touch-action: manipulation; 
 		}
     	.total-amount {
             background-color: darkred;
@@ -126,7 +127,7 @@
         function addItem(qty, selButton) {
         	
         	if(selectPrice != 0){
-			  ////////////////////////按鈕效果
+			   ////////////////////////按鈕效果
            	   // 移除所有按鈕的紅色樣式
                $('#qtyButtons button').removeClass('btn-success');
                $('#qtyButtons button').css('color', '');
@@ -135,7 +136,7 @@
                // 確保文字顏色可見
                $(selButton).css('color', 'black');
            	
-           	    //////////////////////////
+           	   //////////////////////////
                // 更新已點清單
                const itemId = `item-${Date.now()}`;
                let thisAmount = 0;
@@ -160,6 +161,7 @@
                    itemCounts[selectPrice] = qty;
                }
                updateGroupb();
+               selectPrice=0;
         	}
         	
         }
@@ -212,6 +214,9 @@
             updateGroupb();
         }
     
+        document.addEventListener('dblclick', function(e) {
+            e.preventDefault();
+        }, { passive: false });
        
    </script>
 </body>
