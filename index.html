@@ -23,7 +23,10 @@
         .order-list-item {
             margin-bottom: 10px; /* 增加 orderList 內容的間距 */
         }
-        
+         
+        .btn-custom-height:hover {
+		    opacity: 0.85;
+		}
     </style>
 </head>
 <body style="background-color:black;">
@@ -35,7 +38,7 @@
                 <div class="p-3 border total-amount" id="totalAmount"></div>
                 <div class="p-3 border bg-dark text-white" id="groupb"></div>
              	<div class="p-3  bg-dark text-white">
-               		<button class="btn btn-warning btn-custom-height w-100" onclick="clearAll()">總清除</button>
+               		<button class="btn btn-outline-warning btn-custom-height w-100" onclick="clearAll()">總清除</button>
                 </div>
             
             </div>
@@ -72,17 +75,17 @@
 	        	
 	            $('#priceButtons').append(`
 	                <div class="col-6">
-	            		<button class="btn btn-primary m-1 btn-lg w-100 btn-custom-height" onclick="selectedPrice(${price})">${price}</button>
+	            		<button class="btn btn-outline-info m-1 btn-lg w-100 btn-custom-height" onclick="selectedPrice(${price}, this)">${price}</button>
 	                </div>
 	            `);
 	            
 	        }
 	        
 	        for (let qty =1; qty <=6 ; qty++){
-	        	console.log(qty);
+	        	
 	        	$('#qtyButtons').append(`
 		        		<div class="col-12">
-						    <button class="btn btn-danger m-1 btn-lg w-100 btn-custom-height" onclick="addItem(${qty})">${qty} X</button>
+						    <button class="btn btn-outline-success m-1 btn-lg w-100 btn-custom-height" onclick="addItem(${qty}, this)">${qty} X</button>
 						</div>
 		        	`);
 	        	
@@ -93,10 +96,31 @@
         let itemCounts = {};
 		let selectPrice = 0;
 		
-		function selectedPrice(price){
-			selectPrice = price
+		function selectedPrice(price, selButton){
+			selectPrice = price;
+			
+			 // 清除單價按鈕
+            $('#priceButtons button').removeClass('btn-info');
+            $('#priceButtons button').css('color', '');
+            // 增加樣式到被按下的按鈕
+            $(selButton).addClass('btn-info');
+            // 確保文字顏色可見
+            $(selButton).css('color', 'black');
+            // 清除數量按鈕
+            $('#qtyButtons button').removeClass('btn-success');
+            $('#qtyButtons button').css('color', '');
 		}
-        function addItem(qty) {
+        function addItem(qty, selButton) {
+        	//////////////////////// 按鈕效果
+        	 // 移除所有按鈕的紅色樣式
+            $('#qtyButtons button').removeClass('btn-success');
+            $('#qtyButtons button').css('color', '');
+            // 增加樣式到被按下的按鈕
+            $(selButton).addClass('btn-success');
+            // 確保文字顏色可見
+            $(selButton).css('color', 'black');
+        	
+        	//////////////////////////
             // 更新已點清單
             const itemId = `item-${Date.now()}`;
             let thisAmount = 0;
@@ -161,9 +185,16 @@
             totalAmount = 0;
             itemCounts = {};
             $('#totalAmount').text(totalAmount);
+            // 清除單價按鈕
+            $('#priceButtons button').removeClass('btn-info');
+            $('#priceButtons button').css('color', '');
+            
+            // 清除數量按鈕
+            $('#qtyButtons button').removeClass('btn-success');
+            $('#qtyButtons button').css('color', '');
             updateGroupb();
         }
-        
+    
        
    </script>
 </body>
